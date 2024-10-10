@@ -3,6 +3,7 @@ import pygame
 from scripts.player_input import update as player_input
 from scripts.entities import Player
 from scripts.tiles import Tilemap
+from scripts.controls import Cursor
 
 
 class Game:
@@ -22,7 +23,9 @@ class Game:
 
         self.tilemap = Tilemap(self)
 
-        self.scroll = [0, 0]
+        self.cursor = Cursor()
+
+        self.scroll = [0.0, 0.0]
 
         self.movement = [False, False, False, False]
 
@@ -44,6 +47,7 @@ class Game:
         render_scroll = (int(self.scroll[0]), int(self.scroll[1]))
 
         self.tilemap.render(self.display, render_scroll)
+        self.cursor.render(self.display, render_scroll)
         self.player.render(self.display, render_scroll)
 
         self.screen.blit(
