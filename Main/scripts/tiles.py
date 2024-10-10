@@ -4,7 +4,6 @@ NEIGHBOR_OFFSETS = [(-1, -1), (0, -1), (1, -1),
                     (-1, 0), (0, 0), (1, 0),
                     (-1, 1), (0, 1), (1, 1)]
 
-
 class Tile:
     def __init__(self, pos, size):
         self.pos = list(pos)

@@ -1,4 +1,5 @@
 import pygame
+import math
 
 class PhysicsEntity:
     def __init__(self, game, e_type, pos, size):
@@ -47,8 +48,16 @@ class PhysicsEntity:
         surf.blit(player_img, (self.pos[0] - offset[0], self.pos[1] - offset[1]))
 
 class Player(PhysicsEntity):
-    def __init__(self, game, pos , size):
+    def __init__(self, game, pos, size, zoom=1.0, rotation=0):
         super().__init__(game, "player", pos, size)
+        self.zoom = zoom
+        self.rotation = rotation
 
-    def update(self, tilemap, movement=(0, 0, 0, 0)):
+    def update(self, tilemap, movement=(0, 0, 0, 0, 0, 0, 0, 0)):
         super().update(tilemap, movement=((movement[0] - movement[1]), (movement[2] - movement[3])))
+        self.zoom += ((movement[4] - movement[5]) * (0.1 * (self.zoom - 1)*(self.zoom - 1) + 0.3)) * 0.1
+        if self.zoom > 5:
+            self.zoom = 5
+        elif self.zoom < -5:
+            self.zoom = -5
+        self.rotation += (movement[6] - movement[7]) 

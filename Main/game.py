@@ -16,13 +16,15 @@ class Game:
         
         self.assets = {}
         
-        self.player = Player(self, (100, 0), (16, 16))
+        self.player = Player(self, (100, 0), (16, 16), 1.0, 0.0)
 
         self.tilemap = Tilemap(self)
 
-        self.scroll = [0, 0]
+        #axis scroll =  X, Y, Z, R (X: -infinity -> 0 -> infinity, Y: -infinity -> 0 -> infinity, Z: -infinity -> 1 -> infinity, R: 0 -> 360; (0 -> +x_axis, + -> counter_clockwise))
+        self.scroll  = [0, 0, 1, 0]
 
-        self.movement = [False, False, False, False]
+        #key movement -> D =+x, A =-x  S =+y, W =-y, X =+z, C =-z, Q =+r, E =+r
+        self.movement = [False, False, False, False, False, False, False, False]
 
     def run(self):
         while True:
@@ -37,6 +39,9 @@ class Game:
 
         self.scroll[0] += (self.player.rect().centerx - self.display.get_width() / 2 - self.scroll[0]) / 20
         self.scroll[1] += (self.player.rect().centery - self.display.get_height() / 2 - self.scroll[1]) / 20
+        self.scroll[2] += (self.player.zoom - self.scroll[2]) / 20
+        self.scroll[3] += (self.player.rotation - self.scroll[3]) / 20
+        print(self.scroll[3])
         render_scroll = (int(self.scroll[0]), int(self.scroll[1]))
 
         self.tilemap.render(self.display, render_scroll)
