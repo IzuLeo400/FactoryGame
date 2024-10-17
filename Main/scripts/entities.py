@@ -42,8 +42,7 @@ class PhysicsEntity:
                 self.pos[1] = entity_rect.y
     
     def render(self, surf, offset=(0, 0)):
-        player_img = pygame.surface.Surface(self.size)
-        player_img.fill((255, 255, 255))
+        player_img = self.game.assets["Player"]["Idle"]
         surf.blit(player_img, (self.pos[0] - offset[0], self.pos[1] - offset[1]))
 
 class Player(PhysicsEntity):

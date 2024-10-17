@@ -4,6 +4,7 @@ from scripts.player_input import update as player_input
 from scripts.entities import Player
 from scripts.tiles import Tilemap
 from scripts.controls import Cursor
+from scripts.sprites import load_image, load_images, Animation
 
 
 class Game:
@@ -16,14 +17,26 @@ class Game:
         self.display = pygame.Surface((320, 240))
 
         self.clock = pygame.time.Clock()
-
-        self.assets = {}
+        
+        self.assets = {
+            "Cursor": load_image('PlayerControls/Cursor.png'),
+            "Sources": {
+                "HydrogenSource": load_image('Sources/HydrogenSource.png'),
+                "OxygenSource": load_image('Sources/OxygenSource.png')
+            },
+            "Tiles": {
+                "Wall": load_image('Tiles/Wall.png')
+            },
+            "Player": {
+                "Idle": load_image('Player/Idle.png')
+            }
+        }
 
         self.player = Player(self, (100, 0), (16, 16))
 
         self.tilemap = Tilemap(self)
 
-        self.cursor = Cursor()
+        self.cursor = Cursor(self.assets["Cursor"], size=16)
 
         self.scroll = [0.0, 0.0]
 
